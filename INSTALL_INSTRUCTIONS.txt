@@ -1,0 +1,50 @@
+🕵️ INSTAGRAM UNFOLLOWER DETECTIVE - INSTALLATION
+
+========================================================
+
+✅ CORRECT DIRECTORY TO LOAD:
+   ~/Documents/SideProj/instagram-unfollower-detective-extension/
+
+❌ DO NOT LOAD:
+   ~/Documents/SideProj/InstagramUnfollowers-master/
+   (This is the old project directory)
+
+========================================================
+
+📋 INSTALLATION STEPS:
+
+1. Open Chrome and go to: chrome://extensions/
+
+2. Enable "Developer mode" (toggle in top-right corner)
+
+3. Click "Load unpacked"
+
+4. Navigate to and select THIS folder:
+   ~/Documents/SideProj/instagram-unfollower-detective-extension/
+
+5. The extension should load successfully!
+
+========================================================
+
+🚀 HOW TO USE:
+
+1. Go to https://www.instagram.com and log in
+2. Click the extension icon in your browser toolbar  
+3. Click "Start Investigation" in the popup
+4. Watch the beautiful progress overlay on Instagram
+5. View results in the extension popup
+
+========================================================
+
+✅ FILES IN THIS DIRECTORY:
+- manifest.json (Extension config - no icons issue)
+- popup.html (Beautiful purple UI)
+- popup.js (Main functionality)
+- content.js (Instagram integration)
+- content.css (Overlay styling)
+- README.md (Detailed guide)
+
+========================================================
+
+If you get any errors, make sure you're loading the correct directory:
+"instagram-unfollower-detective-extension" (NOT InstagramUnfollowers-master)
