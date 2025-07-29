@@ -688,8 +688,13 @@
                     </div>
                 `;
                 
-                // Try to load the actual profile picture
-                if (user.profile_pic_url && !user.profile_pic_url.includes('via.placeholder.com')) {
+                // Try to load the actual profile picture  
+                if (user.profile_pic_url && 
+                    !user.profile_pic_url.includes('via.placeholder.com') &&
+                    (user.profile_pic_url.includes('cdninstagram.com') || 
+                     user.profile_pic_url.includes('fbcdn.net') ||
+                     user.profile_pic_url.includes('scontent') ||
+                     user.profile_pic_url.includes('instagram.com'))) {
                     const img = document.createElement('img');
                     img.className = 'iu-user-avatar';
                     img.alt = user.username;
