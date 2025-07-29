@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PNG Icon Creator - Instagram Unfollower Detective</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .icons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .icon-box {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        canvas {
+            background: white;
+            border-radius: 8px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        .generate-btn {
+            background: #007bff;
+            font-size: 18px;
+            padding: 15px 30px;
+            margin: 20px 0;
+        }
+        .generate-btn:hover {
+            background: #0056b3;
+        }
+        .instructions {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: rgba(255,193,7,0.2);
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕵️ Instagram Unfollower Detective</h1>
+        <h2 style="text-align: center;">PNG Icon Generator for Chrome Web Store</h2>
+        
+        <div class="warning">
+            <h3>⚠️ Important Steps:</h3>
+            <ol>
+                <li><strong>Click "Generate All Icons"</strong> first</li>
+                <li><strong>Right-click each icon</strong> → "Save image as..."</li>
+                <li><strong>Save exactly as:</strong> icon16.png, icon48.png, icon128.png</li>
+                <li><strong>Put files in your extension folder</strong> (same level as manifest.json)</li>
+                <li><strong>Create ZIP</strong> with all extension files including the PNG icons</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="generate-btn" onclick="generateAllIcons()" id="generateBtn">
+                🎨 Generate All Icons Now
+            </button>
+        </div>
+
+        <div class="icons-container">
+            <div class="icon-box">
+                <h3>icon16.png</h3>
+                <p>Toolbar Icon</p>
+                <canvas id="canvas16" width="16" height="16"></canvas>
+                <br>
+                <button onclick="downloadCanvas('canvas16', 'icon16.png')">💾 Download PNG</button>
+            </div>
+
+            <div class="icon-box">
+                <h3>icon48.png</h3>
+                <p>Extension Management</p>
+                <canvas id="canvas48" width="48" height="48"></canvas>
+                <br>
+                <button onclick="downloadCanvas('canvas48', 'icon48.png')">💾 Download PNG</button>
+            </div>
+
+            <div class="icon-box">
+                <h3>icon128.png</h3>
+                <p>Chrome Web Store</p>
+                <canvas id="canvas128" width="128" height="128"></canvas>
+                <br>
+                <button onclick="downloadCanvas('canvas128', 'icon128.png')">💾 Download PNG</button>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 After Downloading Icons:</h3>
+            <ol>
+                <li><strong>Copy the 3 PNG files</strong> to your extension folder</li>
+                <li><strong>Verify files are named exactly:</strong>
+                    <ul>
+                        <li>icon16.png</li>
+                        <li>icon48.png</li>
+                        <li>icon128.png</li>
+                    </ul>
+                </li>
+                <li><strong>Create ZIP file</strong> containing:
+                    <ul>
+                        <li>manifest.json</li>
+                        <li>popup.html</li>
+                        <li>popup.js</li>
+                        <li>content.js</li>
+                        <li>content.css</li>
+                        <li>console_inject.js</li>
+                        <li>icon16.png ⭐</li>
+                        <li>icon48.png ⭐</li>
+                        <li>icon128.png ⭐</li>
+                    </ul>
+                </li>
+                <li><strong>Upload ZIP</strong> to Chrome Web Store</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function createIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const scale = size / 128;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Create Instagram gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#833ab4');
+            gradient.addColorStop(0.5, '#fd1d1d');
+            gradient.addColorStop(1, '#fcb045');
+            
+            // Main background circle
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = (size / 2) - Math.max(1, 3 * scale);
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // Border
+            ctx.strokeStyle = '#2c2c2c';
+            ctx.lineWidth = Math.max(1, 2 * scale);
+            ctx.stroke();
+            
+            // Detective magnifying glass
+            const glassOffsetX = -6 * scale;
+            const glassOffsetY = -6 * scale;
+            const glassX = centerX + glassOffsetX;
+            const glassY = centerY + glassOffsetY;
+            const glassRadius = Math.max(8, 14 * scale);
+            
+            // Magnifying glass outer ring
+            ctx.beginPath();
+            ctx.arc(glassX, glassY, glassRadius, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = Math.max(2, 3 * scale);
+            ctx.globalAlpha = 0.95;
+            ctx.stroke();
+            
+            // Magnifying glass inner area
+            ctx.beginPath();
+            ctx.arc(glassX, glassY, glassRadius * 0.75, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = Math.max(1, 1.5 * scale);
+            ctx.stroke();
+            
+            // Magnifying glass handle
+            const handleLength = Math.max(8, 16 * scale);
+            const handleStartX = centerX + (6 * scale);
+            const handleStartY = centerY + (6 * scale);
+            const handleEndX = handleStartX + handleLength * 0.707;
+            const handleEndY = handleStartY + handleLength * 0.707;
+            
+            ctx.beginPath();
+            ctx.moveTo(handleStartX, handleStartY);
+            ctx.lineTo(handleEndX, handleEndY);
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = Math.max(2, 4 * scale);
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            
+            ctx.globalAlpha = 1;
+            
+            // Instagram camera symbol (for larger icons)
+            if (size >= 32) {
+                const camSize = Math.max(4, 6 * scale);
+                const camX = glassX - camSize/2;
+                const camY = glassY - camSize/2;
+                
+                // Camera body
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = Math.max(1, 1.5 * scale);
+                ctx.strokeRect(camX, camY, camSize, camSize * 0.75);
+                
+                // Camera lens
+                ctx.beginPath();
+                ctx.arc(glassX, glassY, Math.max(2, 2.5 * scale), 0, 2 * Math.PI);
+                ctx.stroke();
+                
+                // Camera flash dot
+                if (size >= 48) {
+                    ctx.beginPath();
+                    ctx.arc(glassX + (3 * scale), glassY - (3 * scale), Math.max(1, 1 * scale), 0, 2 * Math.PI);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fill();
+                }
+            }
+            
+            // Detective hat (for medium and large icons)
+            if (size >= 32) {
+                ctx.globalAlpha = 0.8;
+                ctx.fillStyle = '#2c2c2c';
+                
+                const hatY = centerY - (26 * scale);
+                const hatWidth = Math.max(16, 22 * scale);
+                const hatHeight = Math.max(3, 6 * scale);
+                
+                // Hat brim (ellipse)
+                ctx.beginPath();
+                ctx.ellipse(centerX, hatY, hatWidth, hatHeight * 0.8, 0, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Hat crown
+                ctx.fillRect(centerX - (hatWidth * 0.7), hatY - hatHeight, hatWidth * 1.4, hatHeight);
+            }
+            
+            // Unfollower indicator dots (for larger icons)
+            if (size >= 48) {
+                ctx.globalAlpha = 0.8;
+                ctx.fillStyle = '#ff4444';
+                
+                const dotRadius = Math.max(1.5, 2.5 * scale);
+                const dots = [
+                    { x: 22 * scale, y: 38 * scale },
+                    { x: 106 * scale, y: 48 * scale },
+                    { x: 28 * scale, y: 88 * scale }
+                ];
+                
+                dots.forEach(dot => {
+                    if (dot.x > dotRadius && dot.x < size - dotRadius && 
+                        dot.y > dotRadius && dot.y < size - dotRadius) {
+                        ctx.beginPath();
+                        ctx.arc(dot.x, dot.y, dotRadius, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                });
+            }
+            
+            ctx.globalAlpha = 1;
+        }
+        
+        function downloadCanvas(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function generateAllIcons() {
+            // Generate all three icon sizes
+            createIcon(document.getElementById('canvas16'), 16);
+            createIcon(document.getElementById('canvas48'), 48);
+            createIcon(document.getElementById('canvas128'), 128);
+            
+            // Update button
+            const btn = document.getElementById('generateBtn');
+            btn.textContent = '✅ Icons Generated! Download them below';
+            btn.style.background = '#28a745';
+            
+            // Enable download buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.textContent.includes('Download')) {
+                    button.disabled = false;
+                    button.style.opacity = '1';
+                }
+            });
+        }
+        
+        // Initialize
+        window.onload = function() {
+            // Disable download buttons initially
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.textContent.includes('Download')) {
+                    button.disabled = true;
+                    button.style.opacity = '0.6';
+                }
+            });
+        };
+    </script>
+</body>
+</html>
