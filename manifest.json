@@ -5,7 +5,6 @@
   "description": "Discover who doesn't follow you back on Instagram with a sleek, unique interface",
   "permissions": [
     "activeTab",
-    "storage",
     "scripting"
   ],
   "host_permissions": [
