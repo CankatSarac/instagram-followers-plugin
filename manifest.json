@@ -1,41 +1,19 @@
 {
   "manifest_version": 3,
-  "name": "Instagram Unfollower Detective",
-  "version": "1.0.0",
-  "description": "Discover who doesn't follow you back on Instagram with a sleek, unique interface",
-  "permissions": [
-    "activeTab",
-    "storage",
-    "scripting"
-  ],
-  "host_permissions": [
-    "https://www.instagram.com/*"
-  ],
+  "name": "Instagram Detective",
+  "version": "1.1.0",
+  "description": "Compare Instagram followers and following JSON exports locally. No login, cookies or account automation.",
+  "homepage_url": "https://extensions.teampire.uk/instagram-detective/",
   "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+    "16": "release/icons/icon16.png",
+    "48": "release/icons/icon48.png",
+    "128": "release/icons/icon128.png"
   },
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "Instagram Unfollower Detective",
-    "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
-    }
+    "default_popup": "release/ui.html",
+    "default_title": "Instagram Detective"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "https://www.instagram.com/*"
-      ],
-      "js": [
-        "content.js"
-      ],
-      "css": [
-        "content.css"
-      ]
-    }
-  ]
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self';"
+  }
 }

@@ -1,0 +1,5 @@
+(function(root){
+function usernames(data,kind){let entries;if(Array.isArray(data))entries=data;else if(data&&typeof data==='object')entries=data[kind==='following'?'relationships_following':'relationships_followers'];if(!Array.isArray(entries))throw Error('Use Instagram followers/following JSON export files. This file has an unsupported format.');const names=new Set();for(const item of entries){const values=(item.string_list_data||[]).map(v=>v.value);if(kind==='following'&&item.title)values.push(item.title);for(const value of values)if(typeof value==='string'&&/^[a-z0-9_.]{1,30}$/i.test(value))names.add(value.toLowerCase());}return [...names];}
+function compare(followers,following){const a=new Set(followers),b=new Set(following);return {notFollowingBack:[...b].filter(x=>!a.has(x)).sort(),mutual:[...b].filter(x=>a.has(x)).sort(),followersOnly:[...a].filter(x=>!b.has(x)).sort()};}
+root.InstagramCore={usernames,compare};if(typeof module!=='undefined')module.exports=root.InstagramCore;
+})(globalThis);
