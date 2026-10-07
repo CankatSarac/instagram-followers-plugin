@@ -23,7 +23,7 @@
 
 ### Quick Push Command:
 ```bash
-git push https://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@github.com/CankatSarac/REPO_NAME.git main
+git push https://[REDACTED TOKEN]@github.com/CankatSarac/REPO_NAME.git main
 ```
 
 ### Set Up Once (For Any Project):
@@ -31,7 +31,7 @@ git push https://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@github.com/CankatSarac
 git config --global credential.helper store
 git push origin main
 # Username: CankatSarac
-# Password: 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
+# Password: [REDACTED TOKEN]
 ```
 
 ## 📊 Project Summary

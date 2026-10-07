@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Instagram Detective",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Compare Instagram followers and following JSON exports locally. No login, cookies or account automation.",
   "homepage_url": "https://extensions.teampire.uk/instagram-detective/",
   "icons": {
