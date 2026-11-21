@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Unfollower Detective</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 450px;
+            min-height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        .container {
+            padding: 20px;
+            position: relative;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .status-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .status-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .run-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .run-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        .run-button:active {
+            transform: translateY(0);
+        }
+        
+        .run-button:disabled {
+            background: rgba(255, 255, 255, 0.3);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .progress-container {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00d4aa, #00b894);
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .results-section {
+            display: none;
+            margin-top: 20px;
+        }
+        
+        .result-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .result-stat:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            font-weight: 500;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .warning {
+            background: rgba(255, 183, 77, 0.2);
+            border: 1px solid rgba(255, 183, 77, 0.4);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .advanced-controls {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .control-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .control-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .filter-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .filter-option input[type="checkbox"] {
+            margin-right: 6px;
+            width: 14px;
+            height: 14px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .pagination button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .pagination button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .user-list {
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-item input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .advanced-mode-toggle {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .toggle-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .toggle-link:hover {
+            color: white;
+        }
+        
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles"></div>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🕵️</div>
+            <div class="title">Unfollower Detective</div>
+            <div class="subtitle">Discover who doesn't follow back</div>
+        </div>
+        
+        <div class="status-card">
+            <div id="status-text" class="status-text">Ready to investigate your Instagram followers</div>
+            <button id="run-button" class="run-button">Start Investigation</button>
+            
+            <div id="progress-container" class="progress-container">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <div id="progress-text" class="progress-text">Initializing...</div>
+            </div>
+        </div>
+        
+        <div id="results-section" class="results-section">
+            <div class="result-stat">
+                <span class="stat-label">Total Following:</span>
+                <span id="total-following" class="stat-value">0</span>
+            </div>
+            <div class="result-stat">
+                <span class="stat-label">Following Back:</span>
+                <span id="following-back" class="stat-value">0</span>
+            </div>
+            <div class="result-stat">
+                <span class="stat-label">Not Following Back:</span>
+                <span id="not-following-back" class="stat-value">0</span>
+            </div>
+        </div>
+
+        <div id="advanced-controls" class="advanced-controls">
+            <div class="control-section">
+                <div class="control-title">🔍 Filter Options</div>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" id="show-non-followers" checked>
+                        Non-Followers
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="show-followers">
+                        Followers
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="show-verified" checked>
+                        Verified
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="show-private" checked>
+                        Private
+                    </label>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <div class="control-title">👥 User Management</div>
+                <div class="pagination">
+                    <button id="prev-page">❮</button>
+                    <span id="page-info">1 / 1</span>
+                    <button id="next-page">❯</button>
+                </div>
+                <div id="user-list" class="user-list">
+                    <!-- Users will be populated here -->
+                </div>
+                <div class="action-buttons">
+                    <button id="select-all" class="action-btn secondary">Select All</button>
+                    <button id="copy-list" class="action-btn secondary">Copy List</button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <div class="control-title">⚙️ Actions</div>
+                <div class="action-buttons">
+                    <button id="settings-btn" class="action-btn secondary">Settings</button>
+                    <button id="advanced-scan" class="action-btn primary">Advanced Scan</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="advanced-mode-toggle">
+            <span id="toggle-advanced" class="toggle-link">Show Advanced Controls</span>
+        </div>
+        
+        <div class="warning">
+            ⚠️ Make sure you're on Instagram.com before starting the investigation
+        </div>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

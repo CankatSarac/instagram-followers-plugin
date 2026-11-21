@@ -11,7 +11,11 @@
       "Bash(git branch:*)",
       "Bash(mv:*)",
       "Bash(python3:*)",
-      "Bash(pip3 install:*)"
+      "Bash(pip3 install:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(zip:*)",
+      "Bash(tar:*)"
     ],
     "deny": []
   }
